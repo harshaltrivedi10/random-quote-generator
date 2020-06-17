@@ -1,9 +1,10 @@
 <template>
-  <div id="background" v-if="true" :style="myStyle">
+  <div id="background" :style="myStyle">
     <app-quote-container
-      :backgroundColor="myStyle.backgroundColor"
+      :bgColor="myStyle.backgroundColor"
       :quote="quote"
       :getQuote="getQuote"
+      :href="href"
     ></app-quote-container>
   </div>
 </template>
@@ -24,7 +25,8 @@ export default {
       quote: {
         text: "",
         author: ""
-      }
+      },
+      href: ""
     };
   },
   created() {
@@ -52,7 +54,17 @@ export default {
           const index = Math.floor(Math.random() * 1600);
           console.log(data.data[index]);
           this.quote.text = data.data[index].text;
-          this.quote.author = data.data[index].author;
+          data.data[index].author.length != null
+            ? (this.quote.author = data.data[index].author)
+            : (this.quote.author = "Anonymous");
+          this.href =
+            "https://www.twitter.com/intent/tweet?text=" +
+            '"' +
+            this.quote.text +
+            '"' +
+            " -" +
+            this.quote.author +
+            "&hashtags=bigOnQuotes";
         })
         .catch(error => {
           console.log(error);

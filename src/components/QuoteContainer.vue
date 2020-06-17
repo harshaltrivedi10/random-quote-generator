@@ -9,7 +9,7 @@
     </div>
     <div class="buttons">
       <div id="tweet-quote" :style="myStyle">
-        <a href="#">
+        <a :href="href" target="_blank">
           <i style="margin: 4px; font-size:24px; color: white" class="fa">
             &#xf099;
           </i>
@@ -33,15 +33,19 @@ export default {
   data() {
     return {
       myStyle: {
-        backgroundColor: this.backgroundColor
+        backgroundColor: this.bgColor
       },
       textStyle: {
-        color: this.backgroundColor
+        color: this.bgColor
       }
     };
   },
   props: {
-    backgroundColor: {
+    bgColor: {
+      type: String,
+      required: true
+    },
+    href: {
       type: String,
       required: true
     },
@@ -54,13 +58,17 @@ export default {
       required: true
     }
   },
-  methods: {}
+  updated() {
+    console.log(this.bgColor);
+    this.myStyle.backgroundColor = this.bgColor;
+    this.textStyle.color = this.bgColor;
+  }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap");
+
 #quote-box {
   position: absolute;
   width: 600px;
@@ -87,24 +95,26 @@ export default {
 }
 
 #new-quote {
-  /* background-color: aqua; */
   border: #f0f8ff;
 }
 
 #quotation {
   font-size: 2em;
+  margin-left: 0.8em;
   margin-right: 0.4em;
 }
 
 #text {
   font-family: "Dancing Script", cursive;
   font-size: 2rem;
+  text-align: center;
 }
 
 #author {
-  font-family: "Dancing Script", cursive;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 1.2rem;
-  margin-right: 15%;
+  margin-right: 10%;
 }
 
 .quote-author {
@@ -113,6 +123,6 @@ export default {
 }
 
 .quote-text {
-  margin: auto 10%;
+  margin: 2% 5%;
 }
 </style>

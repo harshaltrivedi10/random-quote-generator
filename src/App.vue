@@ -8,15 +8,9 @@
 import Background from "./components/Background.vue";
 export default {
   name: "App",
-  data() {
-    return {};
-  },
   components: {
     appBackground: Background
-  },
-  beforeCreate() {},
-  created() {},
-  mounted() {}
+  }
 };
 </script>
 
